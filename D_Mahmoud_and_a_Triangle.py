@@ -1,11 +1,9 @@
-
-
-
-
-def check(sides, n):
+def isNonDegenerate(sides, n):
+    # index of each sides of a triangle
     i, j, k = 0, 1, 2
     while k < n:
-        if sides[i] < sides[j] + sides[k] and sides[j] < sides[i] + sides[j] and sides[k] < sides[i] + sides[j]:
+        # check for non-degenerate triangle
+        if sides[k] < sides[i] + sides[j]:
             return 'YES'
         i += 1
         j += 1
@@ -14,4 +12,4 @@ def check(sides, n):
 
 n = int(input())
 sides = list(map(int, input().split()))
-print(check(sorted(sides), n))
+print(isNonDegenerate(sorted(sides), n))
