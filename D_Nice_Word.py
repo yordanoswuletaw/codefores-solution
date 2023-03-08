@@ -1,37 +1,47 @@
+from collections import Counter
+import string
 
+word = list(input())
+n = len(word)
 
+def check(word, n):
+    substr = Counter(word[:26])
+    repeated = 0
+    for char in substr:
+        if char != '?' and substr[char] > 1:
+            repeated += 1
+    if repeated == 0:
+        return populate(0)
+    for i in range(1, n - 26 + 1):
+        nxtWord = word[i + 26 - 1]
+        substr[nxtWord]  += 1
+        if nxtWord != '?' and substr[nxtWord] == 2:
+            repeated += 1
 
-
-
-
-words = input()
-
-def checkWord(words):
-
-    hashMap = [0] * 26
-    count = ptr = 0
-
-    for i,char in enumerate(words):
-        if char != '?' and hashMap[ord(char) % 65] != 0:
-            print("gettingherere")
-            ptr = i 
-            hashMap = [0] * 26
-            count = 0
-        if len(words) -  ptr < 26:
-            return -1
-        if count + len(hashMap) == 26:
-            output = [0] * 26
-            for i in range(26):
-                if hashMap[i] == 0:
-                    output[i] = chr(65 + i) 
-                else:
-                    output[hashMap[i][1]] = hashMap[i][0]
-            return ''.join(output)
+        prev = word[i - 1]
+        substr[prev] -= 1
+        if prev != '?' and substr[prev] == 1:
+            repeated -= 1  
         
-        if char == '?':
-            count += 1
-        else:
-            hashMap[ord(char) % 65] = (char,i)
+        if repeated == 0:
+            return populate(i)
+        
     return -1
 
-print(checkWord(words))
+
+def populate(i):
+    used = set(word[i:i + 26])
+    used.discard('?')
+    missed = set(string.ascii_uppercase) - used 
+    for i in range(i, i+26):
+        if word[i] == '?':
+            word[i] = missed.pop()
+    return ''.join(word).replace('?','Y')
+
+
+if n < 26:
+    print(-1)
+    exit(0)
+
+print(check(word, n))
+

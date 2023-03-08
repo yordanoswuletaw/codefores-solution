@@ -40,21 +40,3 @@ for i in range(n):
         # else:
         res += min(hashMap[i][0], hashMap[i][1])
 print(res)
-
-"#4d9375"
-"#d4976c",
-"#cb7676"
- "#6394bf"
-"#e6cc77"
-"#2f363d"
- "#e6cc77"
- "#dbd7caee"
-"#181818"
-"#121212"
-
-
-"#86FFAF"
-"#93FF91"
-"#49FF6D"
-"#152535"
-
