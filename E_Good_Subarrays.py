@@ -1,6 +1,7 @@
 
 
 
+from collections import defaultdict
 
 for _ in range(int(input())):
     n = int(input())
@@ -9,19 +10,17 @@ for _ in range(int(input())):
     for digit in digits:
         prfxSum.append(prfxSum[-1] + digit)
     
-    left, right = 0, 1
-    output = 0
-    while right < n:
-        
-        output += int((right - left) == (prfxSum[right] - prfxSum[left]))
 
-        if (right - left) < (prfxSum[right] - prfxSum[left]) or (right - left) <= 1:
-            right += 1
+    diff = {}
+    for i in range(n + 1):
+        if prfxSum[i] - i in diff:
+            diff[prfxSum[i] - i] = diff[prfxSum[i] - i] * 2 + 1 
         else:
-            left += 1
+            diff[prfxSum[i] - i] = 0
 
-       
-
-    print(output)
-
-
+    # output = 0
+    # print(diff)
+    # for key, value in diff.items():
+    #     if value > 1:
+    #         output += value
+    print(sum(diff.values()))
