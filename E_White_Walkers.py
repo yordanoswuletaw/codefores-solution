@@ -22,24 +22,34 @@
 
 n, l, r = map(int, input().split())
 
-res = 0
-count = 0
-def compute(n):
-    global res
-    global count
-    if count >= r:
-        return
+# geting range of the actural number
+def getRange(n):
+    rng = pw = 0
+    while n:
+        rng += 2 ** pw 
+        pw += 1
+        n //= 2
+    return rng
+
+# checking range bound
+def outOfRange(start, end, l, r):
+    return r < start or l > end
+
+# compute ones in the given range
+def compute(n, start, end, l, r):
+    if outOfRange(start, end, l, r) :
+        return 0 
     if n == 0 or n == 1:
-        if count >= l - 1 and count < r:
-             res += n 
-        count += 1
-        return 
-    compute(n // 2)  
-    compute(n % 2)
-    compute(n // 2)
-        
+        return n 
+     
+    rng = (start + end) // 2
+    return compute(n//2, start, rng - 1, l, r) + compute(n % 2, rng, rng, l, r) + compute(n//2, rng + 1, end, l, r)
 
-compute(n)
+print(compute(n, 1, getRange(n), l, r))
 
-print(res)
+
+
+
+
+
 
