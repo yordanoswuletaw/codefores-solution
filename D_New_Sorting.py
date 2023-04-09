@@ -9,5 +9,5 @@ while i <= j:
     nums[i], nums[j] = nums[j], nums[i]
     i += 2
     j -= 2
-print(*nums)
+print(*nums) 
 

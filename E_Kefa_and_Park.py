@@ -1,46 +1,39 @@
-
-
-
-
-
-
-
 import sys, threading
 from collections import defaultdict
 
 input = lambda: sys.stdin.readline().strip()
+
 n, m = map(int, input().split())
 catsV = list(map(int, input().split()))
 
 adjSet = defaultdict(list)
 
-def dfs(parent, childrens, count):
-    if not childrens:
-        if count > m:
-            if catsV[parent - 1] and catsV[catsV[parent - 1]]:
-                return 0
+def dfs(node, prevConsec, parent):
+
+    prevConsec += catsV[node - 1]
+    if prevConsec > m:
+        return 0
+    if not catsV[node - 1]:
+        prevConsec = 0
+    
+    if adjSet[node] == [parent]:
         return 1
-    currSum = 0
-    for child in childrens:
-        if catsV[child - 1]:
-            if count + catsV[child - 1] > m:
-                return 0
-        else:
-            count = 0
-        currSum += dfs(child, adjSet[child], count + catsV[child - 1])
-    return currSum
+    
+    paths = 0
+    for child in adjSet[node]:
+        if child != parent:
+            paths += dfs(child, prevConsec, node)
+
+    return paths
+  
 
 def main():
     for _ in range(n - 1):
         parent, child = map(int, input().split())
         adjSet[parent].append(child)
+        adjSet[child].append(parent)
 
-
-    currSum = 0
-    for child in adjSet[1]:
-        currSum += dfs(child, adjSet[child], catsV[0] + catsV[child - 1])
-
-    print(currSum)
+    print(dfs(1, 0, -1))
 
 if __name__ == '__main__':
     
@@ -50,11 +43,3 @@ if __name__ == '__main__':
     main_thread = threading.Thread(target=main)
     main_thread.start()
     main_thread.join()
-
-
-
-
-
-
-    
-
