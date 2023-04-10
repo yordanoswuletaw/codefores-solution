@@ -5,38 +5,54 @@ import sys, threading
 
 input = lambda: sys.stdin.readline().strip()
 
-n, m = map(int, input().split())
+# solution 1: using recursion
+class Transform:
+    def __init__(self):
+        self.moves = 0
+        self.found = False
+        self.hashSet = set()
 
-# class Transform:
-#     def __init__(self):
-#         self.moves = 0
-#         self.found = False
-moves, found = 0, False
-hashSet = set()
-def transform(n, m, move):
-    global found 
-    global moves
-    if n == m:
-        moves = move
-        found = True 
-        return
-    
-    if n > m or found:
-        if not found:
-            moves = -1
-        return
-    if n * 2 not in hashSet:
-        hashSet.add(n * 2)
-        transform(n * 2, m, move + 1)
-    if n * 3 not in hashSet:
-        hashSet.add(n * 3)
-        transform(n * 3, m, move + 1)
-  
+    def transform(self, n, m, moves):
+        if n == m:
+            self.moves = moves
+            self.found = True 
+            return 
+        if n > m or self.found:
+            if not self.found:
+                self.moves = -1
+            return 
+        if n * 2 not in self.hashSet:
+            self.hashSet.add(n * 2)
+            self.transform(n * 2, m, moves + 1)
+        if n * 3 not in self.hashSet:
+            self.hashSet.add( n * 3)
+            self.transform(n * 3, m, moves + 1)
+
+# solution 2: using math
+def transform(n, m):
+    if m % n:
+        return -1
+    q = m // n
+    count = 0
+    while q != 1:
+        if q % 2 and q % 3:
+            return -1
+        elif q % 2:
+            q //= 3
+        else:
+            q //= 2
+        count += 1
+    return count
+
 
 def main():
-    #t = Transform()
-    transform(n, m, 0)
-    print(moves)
+    n, m = map(int, input().split())
+    t = Transform()
+    t.transform(n, m, 0)
+    #print(t.moves)
+    print(transform(n, m))
+    
+
 
 if __name__ == '__main__':
     

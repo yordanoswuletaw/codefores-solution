@@ -1,9 +1,3 @@
-
-
-
-
-
-
 n = int(input())
 ops = []
 for _ in range(n):
@@ -12,11 +6,12 @@ for _ in range(n):
         ops.append(op)
     else:
         ops.append(int(op.split(' ')[1]))
+        
 
 def catchOverflow():
     stack = []
+    overflowStack = 0
     x = 0
-    cp = 0
     for op in ops:
         if op == 'add':
             if stack:
@@ -28,15 +23,15 @@ def catchOverflow():
                 return 'OVERFLOW!!!'
             x += 1
         elif op == 'end':
-            if cp > 0:
-                cp -= 1
+            if overflowStack > 0:
+                overflowStack -= 1
                 continue
             if stack:
                 stack.pop()
         else:
             if stack:
                 if stack[-1] >= (2 ** 32 - 1):
-                    cp += 1
+                    overflowStack += 1
                     continue
                 stack.append(stack[-1] * op)
             else:
