@@ -1,8 +1,3 @@
-
-
-
-
-
 def checkRectangles(sides, n):
     area = None 
     left, right = 1, 4 * n - 2
