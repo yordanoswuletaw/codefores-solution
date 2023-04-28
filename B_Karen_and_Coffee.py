@@ -20,9 +20,12 @@ def main():
     for i in range(1, MAX_RANGE):
         prfxSum[i] += prfxSum[i - 1]
     
-    # marking admissible recipes with 1 and others with 0
+    # normalizing admissible recipes to 1 and others to 0
     for i in range(MAX_RANGE):
-        prfxSum[i] //= k
+        if prfxSum[i] >= k:
+            prfxSum[i] = 1
+        else:   
+            prfxSum[i] = 0
     
     # running other prefixsum to get the range of admissible recipes 
     for i in range(1, MAX_RANGE):
