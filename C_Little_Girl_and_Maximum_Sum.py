@@ -1,6 +1,7 @@
 def main():
     n, q = map(int,input().split())
-    nums = sorted(map(int, input().split()), reverse=True)
+    nums = list(map(int, input().split()))
+    nums.sort(reverse=True)
     prfxSum = [0] * (n + 1)
 
     for _ in range(q):
