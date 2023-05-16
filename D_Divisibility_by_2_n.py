@@ -1,25 +1,36 @@
-from math import lcm
+def findNumberOfOps(need, nums, n):
+    ops=[0] * n 
+
+    for i in range(n, 0, -1):
+        num = i
+        while num % 2 == 0:
+            num /= 2 
+            ops[i - 1] += 1
+    
+    ops.sort(reverse=True)
+    ans = totSum = 0 
+    for i, op in enumerate(ops):
+        totSum += op 
+        if totSum >= need:
+            return i + 1 
+    return -1
+    
 def main():
     for _ in range(int(input())):
         n = int(input())
         nums = list(map(int, input().split()))
 
-        product = 1
+        powers = 0 
         for num in nums:
-            product *= num 
+            while num % 2 == 0:
+                powers += 1
+                num /= 2
         
-        num = lcm(product, 2 ** n) // product
-        count = 0
-        while num > 1 and n > 0:
-            if num % n == 0:
-                num //= n 
-                count += 1
-            n -= 1
-        
-        if num <= 1:
-            print(count)
+        need = n - powers
+        if need > 0:
+            print(findNumberOfOps(need, nums, n))
         else:
-            print(-1)
+            print(0)
 
 
 if __name__ == '__main__':
