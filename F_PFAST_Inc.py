@@ -3,7 +3,6 @@ from collections import defaultdict
 
 input = lambda: sys.stdin.readline().strip()
 
-
 def main():
     n, m = map(int, input().split())
     vertices = list(input() for _ in range(n))
