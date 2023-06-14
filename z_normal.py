@@ -1,4 +1,5 @@
-from collections import defaultdict, deque
+from collections import defaultdict
+from heapq import heapify, heappop, heappush, heappushpop, heapreplace, nlargest, nsmallest
 
 def main():
     pass 
