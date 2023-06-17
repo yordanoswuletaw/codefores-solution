@@ -10,30 +10,24 @@ def solution(graph, good, bad, n, m):
             return True
 
     def dfs(x, y):
-        if x == n - 1 and y == m - 1 and graph[x][y] != '#':
-            return True 
         if not inBound(x, y):
             return False
         
         visited.add((x, y))
         for i, j in direc:
             _x, _y = x + i, y + j
-            if dfs(_x, _y):
-                return True 
+            dfs(_x, _y)
 
-    for x, y in good:
-        visited = set()
-        if (x, y) not in visited:
-            if not dfs(x, y):
-                return 'No'
-        visited.clear()
+    visited = set()
+    dfs(n - 1, m - 1)
+
+    for cell in good:
+        if cell not in visited:
+            return 'No'
             
-    for x, y in bad:
-        visited = set()
-        if (x, y) not in visited:
-            if dfs(x, y):
-                return 'No'
-        visited.clear()
+    for cell in bad:
+        if cell in visited:
+            return 'No'
     
     return 'Yes'
 
