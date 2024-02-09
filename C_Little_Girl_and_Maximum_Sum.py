@@ -1,6 +1,7 @@
+import sys
 def main():
     n, q = map(int,input().split())
-    nums = list(map(int, input().split()))
+    nums = list(map(int, sys.stdin.readline().strip().split()))
     nums.sort(reverse=True)
     prfxSum = [0] * (n + 1)
 

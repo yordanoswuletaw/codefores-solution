@@ -1,8 +1,9 @@
 from collections import defaultdict
 from heapq import heapify, heappop, heappush, heappushpop, heapreplace, nlargest, nsmallest
-
+from sys import stdin
 def main():
-    pass 
+    inp = stdin.readline()
+    # write your solution here
 
 if __name__ == '__main__':
     main()

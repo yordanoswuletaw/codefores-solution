@@ -1,13 +1,17 @@
-n = int(input())
-skills = sorted(map(int, input().split()))
+def main():
+    n = int(input())
+    skills = sorted(map(int, input().split()))
 
-maxNum = 0
-indx = 0
+    maxNum = 0
+    end = 0
 
-for i in range(n):
+    for start in range(n):
 
-    while indx < n and skills[indx] - skills[i] <= 5:
-        indx += 1
-    maxNum = max(maxNum, indx - i)
+        while end < n and skills[end] - skills[start] <= 5:
+            end += 1
+        maxNum = max(maxNum, end - start)
 
-print(maxNum)
+    print(maxNum)
+
+if __name__ == '__main__':
+    main()

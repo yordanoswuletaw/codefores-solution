@@ -18,5 +18,6 @@ for _ in range(n):
             output.append(str(num - secondMax))
         else:
             output.append(str(num - firstMax))
+            
     print(' '.join(output))
     
