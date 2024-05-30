@@ -1,8 +1,27 @@
-import sys, threading
 from collections import defaultdict
+class UnionFind:
+    def __init__(self, size):
+        self.root = [i for i in range(size)]
+        self.size = [1] * size
 
-input = lambda: sys.stdin.readline().strip()
-
+    def find(self, x):
+        while x != self.root[x]:
+            self.root[x] = self.root[self.root[x]]
+            x = self.root[x]
+        return x
+    
+    def union(self, x, y):
+        rootX = self.find(x)
+        rootY = self.find(y)
+        if rootX != rootY:
+            if self.size[rootX] > self.size[rootY]:
+                self.root[rootY] = rootX
+                self.size[rootX] += self.size[rootY]
+            else:
+                self.root[rootX] = rootY
+                self.size[rootY] += self.size[rootX]
+        else:
+            return True
 
 def main():
     n = int(input())
@@ -27,6 +46,7 @@ def main():
         if each not in visited:
             dfs(each)
             counts += 1
+
     print(counts)
 
 

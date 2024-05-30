@@ -2,18 +2,15 @@ def main():
     n, k = map(int, input().split())
     nums = list(map(int, input().split()))
 
-    suffixSum = []
-    totalSum = 0
-    for i in range(n - 1, -1, -1):
-        totalSum += nums[i]
-        if i > 0:
-            suffixSum.append(totalSum)
+    sfxSum = [nums[-1]]
+    for i in range(n - 2, -1, -1):
+        sfxSum.append(sfxSum[-1] + nums[i])
     
-    suffixSum.sort(reverse=True)
+    ans = sfxSum.pop()
+    sfxSum.sort(reverse=True)
     for i in range(k - 1):
-        totalSum += suffixSum[i]
-    
-    print(totalSum)
+        ans += sfxSum[i]
+    print(ans)
 
 if __name__ == '__main__':
     main()

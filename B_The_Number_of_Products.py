@@ -6,16 +6,16 @@ def main():
     ntvs = 0
     ptvSegments = 0
     for i in range(n):
-        if ntvs % 2 == 0:
-            evenBefore += 1
-        else:
+        if ntvs % 2:
             oddBefore += 1
+        else:
+            evenBefore += 1
         if nums[i] < 0:
             ntvs += 1
-        if ntvs % 2 == 0:
-            ptvSegments += evenBefore
-        else:
+        if ntvs % 2:
             ptvSegments += oddBefore
+        else:
+            ptvSegments += evenBefore
     
     totalSegments = n * (n + 1) // 2
     print(totalSegments - ptvSegments, ptvSegments)

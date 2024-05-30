@@ -6,7 +6,7 @@ def main():
     # write your solution here
 
 if __name__ == '__main__':
-    main()
+    main() 
 
 def main():
     n, m = map(int, input().split())
